@@ -23,7 +23,7 @@ namespace JS\Userbatch\Controller;
 /**
  * Backend module user administration controller
  */
-class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class BackendController extends \JS\Userbatch\Controller\AbstractBackendController
 {
 
   /**
@@ -73,6 +73,17 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
    */
   public function checkAction()
   {
+
+    // Presets
+    if(intval($this->request->getArgument("importAs")) == 1) {
+
+    }
+    else if(intval($this->request->getArgument("importAs")) == 2) {
+
+    }
+    else {
+      die;
+    }
 
     # Todo: Check if user exists (E-Mail)
 
