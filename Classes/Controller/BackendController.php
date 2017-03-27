@@ -1,5 +1,5 @@
 <?php
-namespace SCW\Beuserbatch\Controller;
+namespace JS\Beuserbatch\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -45,7 +45,7 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
   /**
    * downloads: download
    *
-   * @var \SCW\Beuserbatch\Domain\Repository\ImportuserRepository
+   * @var \JS\Beuserbatch\Domain\Repository\ImportuserRepository
    * @inject
    */
   protected $importUserRepository = NULL;
@@ -168,7 +168,7 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     array_shift($arrResult);
 
     foreach ($arrResult as $key => &$value) {
-      $u = new \SCW\Beuserbatch\Domain\Model\Importuser();
+      $u = new \JS\Beuserbatch\Domain\Model\Importuser();
       $u->setFirstname($value[0]);
       $u->setLastname($value[1]);
       $u->setEmail($value[2]);

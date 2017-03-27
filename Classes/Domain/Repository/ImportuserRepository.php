@@ -1,11 +1,11 @@
 <?php
-namespace SCW\Beuserbatch\Domain\Repository;
+namespace JS\Beuserbatch\Domain\Repository;
 
 /***************************************************************
  *
  *  Copyright notice
  *
- *  (c) 2016 Joe Schäfer <schaefer@scw.info>, SCW
+ *  (c) 2016 Joe Schäfer <joe@joekola.de>
  *
  *  All rights reserved
  *
@@ -32,5 +32,5 @@ namespace SCW\Beuserbatch\Domain\Repository;
 class ImportuserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
-    
+
 }

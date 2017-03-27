@@ -1,11 +1,11 @@
 <?php
-namespace SCW\Beuserbatch\Domain\Model;
+namespace JS\Beuserbatch\Domain\Model;
 
 /***************************************************************
  *
  *  Copyright notice
  *
- *  (c) 2016 Joe Schäfer <schaefer@scw.info>, SCW
+ *  (c) 2016 Joe Schäfer <joe@joekola.de>
  *
  *  All rights reserved
  *
@@ -38,42 +38,42 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $firstname = '';
-    
+
     /**
      * lastname
      *
      * @var string
      */
     protected $lastname = '';
-    
+
     /**
      * username
      *
      * @var string
      */
     protected $username = '';
-    
+
     /**
      * begrouip
      *
      * @var int
      */
     protected $begrouip = 0;
-    
+
     /**
      * groupname
      *
      * @var string
      */
     protected $groupname = '';
-    
+
     /**
      * email
      *
      * @var string
      */
     protected $email = '';
-    
+
     /**
      * Returns the firstname
      *
@@ -83,7 +83,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->firstname;
     }
-    
+
     /**
      * Sets the firstname
      *
@@ -94,7 +94,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->firstname = $firstname;
     }
-    
+
     /**
      * Returns the lastname
      *
@@ -104,7 +104,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->lastname;
     }
-    
+
     /**
      * Sets the lastname
      *
@@ -115,7 +115,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->lastname = $lastname;
     }
-    
+
     /**
      * Returns the username
      *
@@ -125,7 +125,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->username;
     }
-    
+
     /**
      * Sets the username
      *
@@ -136,7 +136,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->username = $username;
     }
-    
+
     /**
      * Returns the begrouip
      *
@@ -146,7 +146,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->begrouip;
     }
-    
+
     /**
      * Sets the begrouip
      *
@@ -157,7 +157,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->begrouip = $begrouip;
     }
-    
+
     /**
      * Returns the email
      *
@@ -167,7 +167,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->email;
     }
-    
+
     /**
      * Sets the email
      *
@@ -178,7 +178,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->email = $email;
     }
-    
+
     /**
      * Returns the groupname
      *
@@ -188,7 +188,7 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->groupname;
     }
-    
+
     /**
      * Sets the groupname
      *
