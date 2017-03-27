@@ -1,8 +1,5 @@
 <?php
-namespace JS\userbatch\Messaging;
-
-
-# Put in typo3conf/ext/userbatch/Classes/Messaging/FlashMessage.php
+namespace JS\Userbatch\Messaging;
 
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -76,9 +76,10 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     // Presets
     if(intval($this->request->getArgument("importAs")) == 1) {
-
+      $this->beMessage('Import BE Users');
     }
     else if(intval($this->request->getArgument("importAs")) == 2) {
+      $this->beMessage('Import FE Users');
 
     }
     else {
