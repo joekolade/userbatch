@@ -11,17 +11,17 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Backenduser Batch Create',
-	'description' => 'Creates BE User from CSV-File',
+	'title' => 'TYPO3 user batch create',
+	'description' => 'Backend- and Frontend-User Batch Create from CSV-File',
 	'category' => 'module',
 	'author' => 'Joe Schäfer',
-	'author_email' => 'schaefer@scw.info',
+	'author_email' => 'joe@joekola.de',
 	'state' => 'alpha',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '0.9',
+	'version' => '0.9.1',
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '7.6.0-7.6.99',
