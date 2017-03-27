@@ -1,0 +1,12 @@
+
+ # Module configuration
+module.tx_userbatch_tools_userbatchbeusercreate {
+	persistence {
+		storagePid = {$module.tx_userbatch_beusercreate.persistence.storagePid}
+	}
+	view {
+		templateRootPaths.0 = {$module.tx_userbatch_beusercreate.view.templateRootPath}
+		partialRootPaths.0 = {$module.tx_userbatch_beusercreate.view.partialRootPath}
+		layoutRootPaths.0 = {$module.tx_userbatch_beusercreate.view.layoutRootPath}
+	}
+}
