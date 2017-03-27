@@ -1,5 +1,5 @@
 <?php
-namespace JS\Beuserbatch\Domain\Repository;
+namespace JS\Userbatch\Domain\Repository;
 
 /***************************************************************
  *
