@@ -11,7 +11,7 @@ if (TYPO3_MODE === 'BE') {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		'JS.' . $_EXTKEY,
 		'tools',	 // Make module a submodule of 'tools'
-		'beusercreate',	// Submodule key
+		'userbatch',	// Submodule key
 		'',						// Position
 		array(
 			'Backend' => 'overview, check, create',
@@ -20,7 +20,7 @@ if (TYPO3_MODE === 'BE') {
 		array(
 			'access' => 'user,group',
 			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.png',
-			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_beusercreate.xlf',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_userbatch.xlf',
 		)
 	);
 
