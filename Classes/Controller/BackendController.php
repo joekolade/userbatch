@@ -19,6 +19,7 @@ namespace JS\Userbatch\Controller;
 // use TYPO3\CMS\Core\Database\DatabaseConnection;
 // use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 // use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Backend module user administration controller
@@ -79,6 +80,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
     public function checkAction()
     {
 
+
+        DebuggerUtility::var_dump($this->request->getArguments());
         $importAs = intval($this->request->getArgument("importAs"));
 
         // Presets
@@ -95,7 +98,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
         if($this->request->hasArgument('file')) {
             $file = $this->request->getArgument('file')['tmp_name'];
-            $arrResult = $this->getInfoFromCSV($file);
+            $arrResult = $this->getInfoFromCSV($file, $importAs);
         }
         else {
             $this->redirect(
@@ -109,7 +112,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     }
 
-    protected function getInfoFromCSV($file){
+    protected function getInfoFromCSV($file, $importAs){
         $arrResult  = array();
         $user  = array();
         $handle     = fopen($file, "r");
@@ -131,6 +134,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             };
 
             $u = new \JS\Userbatch\Domain\Model\Importuser();
+            $u->setUsertype($importAs);
             $u->setFirstname($value[0]);
             $u->setLastname($value[1]);
             $u->setEmail($value[2]);
