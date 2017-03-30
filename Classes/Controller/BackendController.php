@@ -203,6 +203,11 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     }
 
+    protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
+    {
+
+    }
+
     protected function createBeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
     {
         $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;

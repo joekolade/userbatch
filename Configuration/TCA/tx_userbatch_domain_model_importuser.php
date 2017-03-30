@@ -23,10 +23,10 @@ return array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('userbatch') . 'Resources/Public/Icons/tx_userbatch_domain_model_importuser.gif'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, firstname, lastname, username, begrouip, groupname, email',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, usertype, firstname, lastname, username, begrouip, groupname, email',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, firstname, lastname, username, begrouip, groupname, email, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, usertype, firstname, lastname, username, begrouip, groupname, email, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -116,6 +116,15 @@ return array(
 			),
 		),
 
+        'usertype' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:userbatch/Resources/Private/Language/locallang_db.xlf:tx_userbatch_domain_model_importuser.usertype',
+            'config' => array(
+                'type' => 'input',
+                'size' => 4,
+                'eval' => 'int'
+            )
+        ),
 		'firstname' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:userbatch/Resources/Private/Language/locallang_db.xlf:tx_userbatch_domain_model_importuser.firstname',

@@ -32,6 +32,14 @@ namespace JS\Userbatch\Domain\Model;
 class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
+
+    /**
+     * usertype
+     *
+     * @var int
+     */
+    protected $usertype = 0;
+
     /**
      * firstname
      *
@@ -73,6 +81,27 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $email = '';
+
+    /**
+     * Returns the usertype
+     *
+     * @return int $usertype
+     */
+    public function getUsertype()
+    {
+        return $this->usertype;
+    }
+
+    /**
+     * Sets the usertype
+     *
+     * @param int $usertype
+     * @return void
+     */
+    public function setUsertype($usertype)
+    {
+        $this->usertype = $usertype;
+    }
 
     /**
      * Returns the firstname
