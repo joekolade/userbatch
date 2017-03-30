@@ -79,11 +79,13 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
   public function checkAction()
   {
 
-    // Presets
-    if(intval($this->request->getArgument("importAs")) == 1) {
-      $this->beMessage('Import BE Users');
+      $importAs = intval($this->request->getArgument("importAs"));
+
+      // Presets
+      if($importAs == 1) {
+        $this->beMessage('Import BE Users');
     }
-    else if(intval($this->request->getArgument("importAs")) == 2) {
+    else if($importAs == 2) {
       $this->beMessage('Import FE Users');
 
     }
@@ -105,69 +107,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     $this->view->assign('file', $this->request->getArgument('file'));
     $this->view->assign('data', $arrResult);
-    $this->view->assign('importAs', $this->request->getArgument('importAs'));
-
-  }
-
-  /**
-   * Create BackendUsers
-   *
-   * @return void
-   */
-  public function createAction()
-  {
-    $user = $this->importUserRepository->findAll();
-    $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-    $data = array();
-
-    // Create users
-    //
-    foreach ($user as $key => $value) {
-      // $u = new \TYPO3\CMS\Extbase\Domain\Model\BackendUser;
-      $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
-      $u->setRealName($value->getFirstname() . ' ' . $value->getLastname());
-      $u->setUserName($value->getUsername());
-      $u->setEmail($value->getEmail());
-
-      // Group
-      if($value->getBegrouip() > 0){
-        // Set Group!
-        $g = $this->beusergroupRepository->findByUid($value->getBegrouip());
-        $u->setBackendUserGroups($g);
-      }
-      else {
-        $u->setIsAdministrator(TRUE);
-      }
-      $u->setPid(261);
-
-      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u);
-      // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getBackendUser());
-      $this->beuserRepository->add($u);
-      $persistenceManager->persistAll();
-
-      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getUid(), 'UID');
-
-      // Set pwd
-      $into_table  = 'be_users';
-      $where_clause= 'uid='.$u->getUid();
-      $field_values = array(
-        'password' => $value->getUsername().'_pwd_0102'
-        ,'tstamp' => time()
-      );
-
-      $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-        $into_table
-        , $where_clause
-        , $field_values
-      );
-
-      $data[] = array($value->getUsername(), $value->getUsername().'_pwd_0102');
-    }
-
-    $this->view->assign('data', $data);
-
-    // Truncate Table
-    // $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
+    $this->view->assign('importAs', $importAs);
 
   }
 
@@ -228,5 +168,69 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
     $n .= strtolower(preg_replace($find , $replace, $arr[1]));
 
     return $n;
+  }
+
+  /**
+   * Create BackendUsers
+   *
+   * @return void
+   */
+  public function createAction()
+  {
+      $extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['userbatch']);
+
+    $users = $this->importUserRepository->findAll();
+    $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+    $data = array();
+
+    // Create users
+    //
+    foreach ($users as $key => $value) {
+      // $u = new \TYPO3\CMS\Extbase\Domain\Model\BackendUser;
+      $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
+      $u->setRealName($value->getFirstname() . ' ' . $value->getLastname());
+      $u->setUserName($value->getUsername());
+      $u->setEmail($value->getEmail());
+
+      // Group
+      if($value->getBegrouip() > 0){
+        // Set Group!
+        $g = $this->beusergroupRepository->findByUid($value->getBegrouip());
+        $u->setBackendUserGroups($g);
+      }
+      else {
+        $u->setIsAdministrator(TRUE);
+      }
+      $u->setPid($extconf['pid']);
+
+      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u);
+      // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getBackendUser());
+      $this->beuserRepository->add($u);
+      $persistenceManager->persistAll();
+
+      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getUid(), 'UID');
+
+      // Set pwd
+      $into_table  = 'be_users';
+      $where_clause= 'uid='.$u->getUid();
+      $field_values = array(
+        'password' => $value->getUsername().'_pwd_0102'
+        ,'tstamp' => time()
+      );
+
+      $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+        $into_table
+        , $where_clause
+        , $field_values
+      );
+
+      $data[] = array($value->getUsername(), $value->getUsername().'_pwd_0102');
+    }
+
+    $this->view->assign('data', $data);
+
+    // Truncate Table
+    // $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
+
   }
 }

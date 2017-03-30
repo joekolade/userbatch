@@ -4,3 +4,6 @@
 
 # cat=General/userbatch/10; type=string; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:prefix
 prefix = pre
+
+# cat=General/userbatch/20; type=int; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:pid
+pid = 1

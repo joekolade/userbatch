@@ -8,6 +8,10 @@
                 <source>Prefix for usernames</source>
             </trans-unit>
 
+            <trans-unit id="pid">
+                <source>Storage PID for users</source>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

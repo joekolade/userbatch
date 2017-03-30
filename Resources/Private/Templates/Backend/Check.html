@@ -35,8 +35,8 @@
           <p>
             Is this what you wanted to import?
           </p>
-
-          <f:link.action action="create" class="btn btn-primary">Create BE Users as shown above</f:link.action>
+import as: {importAs}
+          <f:link.action action="create" class="btn btn-primary" arguments="{importAs: importAs}">Create Users as shown above</f:link.action>
         </f:then>
         <f:else>
           <p>
