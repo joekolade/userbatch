@@ -116,6 +116,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             $u->setLastname($value[1]);
             $u->setEmail($value[2]);
             $value[3] = intval($value[3]);
+
+            // todo: multiple groups csv
             $u->setBegrouip($value[3]);
 
             if(is_int($value[3]) && $value[3] > 0){
