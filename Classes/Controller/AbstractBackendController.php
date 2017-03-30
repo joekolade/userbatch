@@ -26,6 +26,46 @@ namespace JS\Userbatch\Controller;
 class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
+    /**
+     * $beusergroupRepository
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository
+     * @inject
+     */
+    protected $beusergroupRepository = NULL;
+
+    /**
+     * $beuserRepository
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
+     * @inject
+     */
+    protected $beuserRepository = NULL;
+
+    /**
+     * $feusergroupRepository
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+     * @inject
+     */
+    protected $feusergroupRepository = NULL;
+
+    /**
+     * feuserRepository
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+     * @inject
+     */
+    protected $feuserRepository = NULL;
+
+    /**
+     * downloads: download
+     *
+     * @var \JS\Userbatch\Domain\Repository\ImportuserRepository
+     * @inject
+     */
+    protected $importUserRepository = NULL;
+
 
     protected function beMessage(
         $message = 'My message',

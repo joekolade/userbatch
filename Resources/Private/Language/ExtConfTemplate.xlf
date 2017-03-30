@@ -8,8 +8,14 @@
                 <source>Prefix for usernames</source>
             </trans-unit>
 
-            <trans-unit id="pid">
-                <source>Storage PID for users</source>
+            <trans-unit id="pidFe">
+                <source>Storage PID for FE-users</source>
+            </trans-unit>
+            <trans-unit id="pidBe">
+                <source>Storage PID for BE-users</source>
+            </trans-unit>
+            <trans-unit id="defaultFeUserGroup">
+                <source>Default user group for FE-users</source>
             </trans-unit>
 
         </body>

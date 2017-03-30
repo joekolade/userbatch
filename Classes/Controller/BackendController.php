@@ -28,30 +28,6 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 {
 
     /**
-     * downloads: download
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository
-     * @inject
-     */
-    protected $beusergroupRepository = NULL;
-
-    /**
-     * downloads: download
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
-     * @inject
-     */
-    protected $beuserRepository = NULL;
-
-    /**
-     * downloads: download
-     *
-     * @var \JS\Userbatch\Domain\Repository\ImportuserRepository
-     * @inject
-     */
-    protected $importUserRepository = NULL;
-
-    /**
      * Create backendUsers-form
      *
      * @return void
@@ -81,7 +57,6 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
     {
 
 
-        DebuggerUtility::var_dump($this->request->getArguments());
         $importAs = intval($this->request->getArgument("importAs"));
 
         // Presets
@@ -90,7 +65,6 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         }
         else if($importAs == 2) {
             $this->beMessage('Import FE Users');
-
         }
         else {
             die;
@@ -129,9 +103,12 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         foreach ($arrResult as $key => &$value) {
 
             # skip if email is already in use
-            if( count($this->beuserRepository->findByEmail($value[2])) ){
+            if( ($importAs == 1) && count($this->beuserRepository->findByEmail($value[2])) ){
                 continue;
-            };
+            }
+            else if( ($importAs == 2) && count($this->feuserRepository->findByEmail($value[2])) ){
+                continue;
+            }
 
             $u = new \JS\Userbatch\Domain\Model\Importuser();
             $u->setUsertype($importAs);
@@ -194,7 +171,16 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         // Create users
         //
         foreach ($users as $user) {
-            $data[] = $this->createBeUser($user, $persistenceManager);
+            switch($user->getUsertype()){
+                case 1:
+                    $data[] = $this->createBeUser($user, $persistenceManager, $extconf);
+                    break;
+                case 2:
+                default:
+                    $data[] = $this->createFeUser($user, $persistenceManager, $extconf);
+                    break;
+
+            }
 
             # Todo: email information for user / admin
         }
@@ -207,12 +193,59 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     }
 
-    protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
+    protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
     {
+        $u = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
+        $u->setUserName($user->getUsername());
+
+        $u->setName($user->getFirstname() . ' ' . $user->getLastname());
+        $u->setFirstName($user->getFirstname());
+        $u->setLastname($user->getLastname());
+
+        $u->setEmail($user->getEmail());
+
+        // Group
+        if($user->getBegrouip() > 0){
+            // Set Group!
+            $g = $this->feusergroupRepository->findByUid($user->getBegrouip());
+
+            if($g && count($g)) {
+                $u->addUsergroup($g);
+            }
+        }
+        else {
+            // Set Group!
+            $g = $this->feusergroupRepository->findByUid($extconf['defaultFeUserGroup']);
+
+            if($g && count($g)) {
+                $u->addUsergroup($g);
+            }
+        }
+        $u->setPid($extconf['pidFe']);
+
+        $this->feuserRepository->add($u);
+        $persistenceManager->persistAll();
+
+        // Set pwd
+        $pwd = md5($user->getUsername().'_pwd_0102_'.time());
+        $into_table  = 'fe_users';
+        $where_clause= 'uid='.$u->getUid();
+        $field_values = array(
+            'password' => $pwd,
+            'tstamp' => time()
+        );
+
+        $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            $into_table
+            , $where_clause
+            , $field_values
+        );
+
+        return array($user->getUsername(), $pwd);
     }
 
-    protected function createBeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
+    protected function createBeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
     {
         $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
         $u->setRealName($user->getFirstname() . ' ' . $user->getLastname());
