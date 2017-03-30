@@ -1,6 +1,5 @@
 module.tx_userbatch_tools_userbatchbeusercreate {
   settings {
-    usernamePrefix = scw
   }
 }
 config.tx_extbase{

@@ -1,0 +1,6 @@
+#############
+### Setup ###
+#############
+
+# cat=General/userbatch/10; type=string; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:prefix
+prefix = pre

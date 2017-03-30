@@ -58,6 +58,11 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
   public function overviewAction()
   {
       // Init
+
+
+      // Clear Import-User-Table
+      $this->initializeCheckAction();
+
   }
 
   public function initializeCheckAction()
@@ -100,6 +105,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     $this->view->assign('file', $this->request->getArgument('file'));
     $this->view->assign('data', $arrResult);
+    $this->view->assign('importAs', $this->request->getArgument('importAs'));
 
   }
 
@@ -211,7 +217,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
   protected function buildUsername($arr)
   {
-    $n = $this->settings['usernamePrefix'];
+
+    $n =  unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['userbatch'])['prefix'];
     $n .= '_';
     $n .= strtolower($arr[0][0]);
 
