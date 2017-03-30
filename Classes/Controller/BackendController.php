@@ -93,8 +93,6 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             die;
         }
 
-        # Todo: Check if user exists (E-Mail)
-
         if($this->request->hasArgument('file')) {
             $file = $this->request->getArgument('file')['tmp_name'];
             $arrResult = $this->getInfoFromCSV($file);
@@ -126,6 +124,12 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         array_shift($arrResult);
 
         foreach ($arrResult as $key => &$value) {
+
+            # skip if email is already in use
+            if( count($this->beuserRepository->findByEmail($value[2])) ){
+                continue;
+            };
+
             $u = new \JS\Userbatch\Domain\Model\Importuser();
             $u->setFirstname($value[0]);
             $u->setLastname($value[1]);
