@@ -1,5 +1,5 @@
 <?php
-namespace SCW\Beuserbatch\Controller;
+namespace JS\Userbatch\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,195 +19,270 @@ namespace SCW\Beuserbatch\Controller;
 // use TYPO3\CMS\Core\Database\DatabaseConnection;
 // use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 // use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Backend module user administration controller
  */
-class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class BackendController extends \JS\Userbatch\Controller\AbstractBackendController
 {
 
-  /**
-   * downloads: download
-   *
-   * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository
-   * @inject
-   */
-  protected $beusergroupRepository = NULL;
+    /**
+     * Create backendUsers-form
+     *
+     * @return void
+     */
+    public function overviewAction()
+    {
+        // Init
 
-  /**
-   * downloads: download
-   *
-   * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
-   * @inject
-   */
-  protected $beuserRepository = NULL;
 
-  /**
-   * downloads: download
-   *
-   * @var \SCW\Beuserbatch\Domain\Repository\ImportuserRepository
-   * @inject
-   */
-  protected $importUserRepository = NULL;
+        // Clear Import-User-Table
+        $this->initializeCheckAction();
 
-  /**
-   * Create backendUsers-form
-   *
-   * @return void
-   */
-  public function overviewAction()
-  {
-      // Init
-  }
-
-  public function initializeCheckAction()
-  {
-    // Clear table
-    $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
-  }
-
-  /**
-   * Check the given data
-   *
-   * @return void
-   */
-  public function checkAction()
-  {
-
-    # Todo: Check if user exists (E-Mail)
-
-    if($this->request->hasArgument('file')) {
-      $file = $this->request->getArgument('file')['tmp_name'];
-      $arrResult = $this->getInfoFromCSV($file);
-    }
-    else {
-      $this->redirect(
-          'overview'
-      );
     }
 
-    $this->view->assign('file', $this->request->getArgument('file'));
-    $this->view->assign('data', $arrResult);
-
-  }
-
-  /**
-   * Create BackendUsers
-   *
-   * @return void
-   */
-  public function createAction()
-  {
-    $user = $this->importUserRepository->findAll();
-    $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-    $data = array();
-
-    // Create users
-    //
-    foreach ($user as $key => $value) {
-      // $u = new \TYPO3\CMS\Extbase\Domain\Model\BackendUser;
-      $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
-      $u->setRealName($value->getFirstname() . ' ' . $value->getLastname());
-      $u->setUserName($value->getUsername());
-      $u->setEmail($value->getEmail());
-
-      // Group
-      if($value->getBegrouip() > 0){
-        // Set Group!
-        $g = $this->beusergroupRepository->findByUid($value->getBegrouip());
-        $u->setBackendUserGroups($g);
-      }
-      else {
-        $u->setIsAdministrator(TRUE);
-      }
-      $u->setPid(261);
-
-      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u);
-      // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getBackendUser());
-      $this->beuserRepository->add($u);
-      $persistenceManager->persistAll();
-
-      \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($u->getUid(), 'UID');
-
-      // Set pwd
-      $into_table  = 'be_users';
-      $where_clause= 'uid='.$u->getUid();
-      $field_values = array(
-        'password' => $value->getUsername().'_pwd_0102'
-        ,'tstamp' => time()
-      );
-
-      $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-        $into_table
-        , $where_clause
-        , $field_values
-      );
-
-      $data[] = array($value->getUsername(), $value->getUsername().'_pwd_0102');
+    public function initializeCheckAction()
+    {
+        // Clear table
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
     }
 
-    $this->view->assign('data', $data);
+    /**
+     * Check the given data
+     *
+     * @return void
+     */
+    public function checkAction()
+    {
 
-    // Truncate Table
-    // $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
 
-  }
+        $importAs = intval($this->request->getArgument("importAs"));
 
-  protected function getInfoFromCSV($file){
-    $arrResult  = array();
-    $user  = array();
-    $handle     = fopen($file, "r");
-    if(empty($handle) === false) {
-        while(($data = fgetcsv($handle, 1000, ";")) !== FALSE){
-            $arrResult[] = $data;
+        // Presets
+        if($importAs == 1) {
+            $this->beMessage('Import BE Users');
         }
-        fclose($handle);
-    }
-
-    // delete title column
-    array_shift($arrResult);
-
-    foreach ($arrResult as $key => &$value) {
-      $u = new \SCW\Beuserbatch\Domain\Model\Importuser();
-      $u->setFirstname($value[0]);
-      $u->setLastname($value[1]);
-      $u->setEmail($value[2]);
-      $value[3] = intval($value[3]);
-      $u->setBegrouip($value[3]);
-
-      if(is_int($value[3]) && $value[3] > 0){
-        $g = $this->beusergroupRepository->findByUid($value[3]);
-        if(count($g)){
-          $value[4] = $g->getTitle() . ' (#' . $value[3] . ')';
+        else if($importAs == 2) {
+            $this->beMessage('Import FE Users');
         }
-      }
-      else {
-        $value[4] = 'Admin';
-      }
-      $value[5] = $this->buildUsername($value);
+        else {
+            die;
+        }
 
-      $u->setGroupname($value[4]);
-      $u->setUsername($value[5]);
+        if($this->request->hasArgument('file')) {
+            $file = $this->request->getArgument('file')['tmp_name'];
+            $arrResult = $this->getInfoFromCSV($file, $importAs);
+        }
+        else {
+            $this->redirect(
+                'overview'
+            );
+        }
 
-      $this->importUserRepository->add($u);
+        $this->view->assign('file', $this->request->getArgument('file'));
+        $this->view->assign('data', $arrResult);
+        $this->view->assign('importAs', $importAs);
 
-      $user[] = $u;
     }
 
-    return $user;
-  }
+    protected function getInfoFromCSV($file, $importAs){
+        $arrResult  = array();
+        $user  = array();
+        $handle     = fopen($file, "r");
+        if(empty($handle) === false) {
+            while(($data = fgetcsv($handle, 1000, ";")) !== FALSE){
+                $arrResult[] = $data;
+            }
+            fclose($handle);
+        }
 
-  protected function buildUsername($arr)
-  {
-    $n = $this->settings['usernamePrefix'];
-    $n .= '_';
-    $n .= strtolower($arr[0][0]);
+        // delete title column
+        array_shift($arrResult);
 
-    $find = array('/ä/','/ö/','/ü/','/ß/','/Ä/','/Ö/','/Ü/','/ /','/[:;]/');
-    $replace = array('ae','oe','ue','ss','Ae','Oe','Ue','_','');
+        foreach ($arrResult as $key => &$value) {
 
-    $n .= strtolower(preg_replace($find , $replace, $arr[1]));
+            # skip if email is already in use
+            if( ($importAs == 1) && count($this->beuserRepository->findByEmail($value[2])) ){
+                continue;
+            }
+            else if( ($importAs == 2) && count($this->feuserRepository->findByEmail($value[2])) ){
+                continue;
+            }
 
-    return $n;
-  }
+            $u = new \JS\Userbatch\Domain\Model\Importuser();
+            $u->setUsertype($importAs);
+            $u->setFirstname($value[0]);
+            $u->setLastname($value[1]);
+            $u->setEmail($value[2]);
+            $value[3] = intval($value[3]);
+
+            // todo: multiple groups csv
+            $u->setBegrouip($value[3]);
+
+            if(is_int($value[3]) && $value[3] > 0){
+                $g = $this->beusergroupRepository->findByUid($value[3]);
+                if(count($g)){
+                    $value[4] = $g->getTitle() . ' (#' . $value[3] . ')';
+                }
+            }
+            else {
+                $value[4] = 'Admin';
+            }
+            $value[5] = $this->buildUsername($value);
+
+            $u->setGroupname($value[4]);
+            $u->setUsername($value[5]);
+
+            $this->importUserRepository->add($u);
+
+            $user[] = $u;
+        }
+
+        return $user;
+    }
+
+    protected function buildUsername($arr)
+    {
+
+        $n =  unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['userbatch'])['prefix'];
+        $n .= '_';
+        $n .= strtolower($arr[0][0]);
+
+        $find = array('/ä/','/ö/','/ü/','/ß/','/Ä/','/Ö/','/Ü/','/ /','/[:;]/');
+        $replace = array('ae','oe','ue','ss','Ae','Oe','Ue','_','');
+
+        $n .= strtolower(preg_replace($find , $replace, $arr[1]));
+
+        return $n;
+    }
+
+    /**
+     * Create BackendUsers
+     *
+     * @return void
+     */
+    public function createAction()
+    {
+        $extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['userbatch']);
+
+        $users = $this->importUserRepository->findAll();
+        $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $data = array();
+
+        // Create users
+        //
+        foreach ($users as $user) {
+            switch($user->getUsertype()){
+                case 1:
+                    $data[] = $this->createBeUser($user, $persistenceManager, $extconf);
+                    break;
+                case 2:
+                default:
+                    $data[] = $this->createFeUser($user, $persistenceManager, $extconf);
+                    break;
+
+            }
+
+            # Todo: email information for user / admin
+        }
+
+        $this->view->assign('data', $data);
+
+        // Finish
+        // Truncate Table
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('tx_userbatch_domain_model_importuser');
+
+    }
+
+    protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
+    {
+        $u = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+
+        $u->setUserName($user->getUsername());
+
+        $u->setName($user->getFirstname() . ' ' . $user->getLastname());
+        $u->setFirstName($user->getFirstname());
+        $u->setLastname($user->getLastname());
+
+        $u->setEmail($user->getEmail());
+
+        // Group
+        if($user->getBegrouip() > 0){
+            // Set Group!
+            $g = $this->feusergroupRepository->findByUid($user->getBegrouip());
+
+            if($g && count($g)) {
+                $u->addUsergroup($g);
+            }
+        }
+        else {
+            // Set Group!
+            $g = $this->feusergroupRepository->findByUid($extconf['defaultFeUserGroup']);
+
+            if($g && count($g)) {
+                $u->addUsergroup($g);
+            }
+        }
+        $u->setPid($extconf['pidFe']);
+
+        $this->feuserRepository->add($u);
+        $persistenceManager->persistAll();
+
+        // Set pwd
+        $pwd = md5($user->getUsername().'_pwd_0102_'.time());
+        $into_table  = 'fe_users';
+        $where_clause= 'uid='.$u->getUid();
+        $field_values = array(
+            'password' => $pwd,
+            'tstamp' => time()
+        );
+
+        $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            $into_table
+            , $where_clause
+            , $field_values
+        );
+
+        return array($user->getUsername(), $pwd);
+    }
+
+    protected function createBeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
+    {
+        $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
+        $u->setRealName($user->getFirstname() . ' ' . $user->getLastname());
+        $u->setUserName($user->getUsername());
+        $u->setEmail($user->getEmail());
+
+        // Group
+        if($user->getBegrouip() > 0){
+            // Set Group!
+            $g = $this->beusergroupRepository->findByUid($user->getBegrouip());
+            $u->setBackendUserGroups($g);
+        }
+        else {
+            $u->setIsAdministrator(TRUE);
+        }
+        $u->setPid($extconf['pid']);
+
+        $this->beuserRepository->add($u);
+        $persistenceManager->persistAll();
+
+        // Set pwd
+        $pwd = md5($user->getUsername().'_pwd_0102_'.time());
+        $into_table  = 'be_users';
+        $where_clause= 'uid='.$u->getUid();
+        $field_values = array(
+            'password' => $pwd,
+            'tstamp' => time()
+        );
+
+        $res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            $into_table
+            , $where_clause
+            , $field_values
+        );
+
+        return array($user->getUsername(), $pwd);
+    }
 }

@@ -6,6 +6,8 @@ CREATE TABLE tx_userbatch_domain_model_importuser (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+	usertype int(11) DEFAULT '0' NOT NULL,
+
 	firstname varchar(255) DEFAULT '' NOT NULL,
 	lastname varchar(255) DEFAULT '' NOT NULL,
 	username varchar(255) DEFAULT '' NOT NULL,

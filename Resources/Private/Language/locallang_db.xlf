@@ -6,6 +6,9 @@
 			<trans-unit id="tx_userbatch_domain_model_importuser">
 				<source>Importuser</source>
 			</trans-unit>
+			<trans-unit id="tx_userbatch_domain_model_importuser.usertype">
+				<source>User type</source>
+			</trans-unit>
 			<trans-unit id="tx_userbatch_domain_model_importuser.firstname">
 				<source>Firstname</source>
 			</trans-unit>

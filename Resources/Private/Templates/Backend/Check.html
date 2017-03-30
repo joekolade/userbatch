@@ -7,7 +7,12 @@
       <f:if condition="{data -> f:count()}">
         <f:then>
           <p>
-            Data to import:
+            Data to import as
+            <f:if condition="{importAs} == 1">
+              <f:then>Backend-Users</f:then>
+              <f:else>Frontend-Users</f:else>
+            </f:if>
+            :
           </p>
           <table class="table table-striped">
             <tr>
@@ -30,12 +35,12 @@
           <p>
             Is this what you wanted to import?
           </p>
-
-          <f:link.action action="create" class="btn btn-primary">Create BE Users as shown above</f:link.action>
+import as: {importAs}
+          <f:link.action action="create" class="btn btn-primary" arguments="{importAs: importAs}">Create Users as shown above</f:link.action>
         </f:then>
         <f:else>
           <p>
-            No data found in file or not file uploaded!
+            No (new) data found in file or not file uploaded!
           </p>
         </f:else>
       </f:if>

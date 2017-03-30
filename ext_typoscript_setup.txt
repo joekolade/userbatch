@@ -1,13 +1,12 @@
 module.tx_userbatch_tools_userbatchbeusercreate {
   settings {
-    usernamePrefix = scw
   }
 }
 config.tx_extbase{
     persistence{
         classes{
 
-            SCW\Beuserbatch\Domain\Model\Importuser {
+            JS\Beuserbatch\Domain\Model\Importuser {
                 mapping {
 
                 }

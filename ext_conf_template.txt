@@ -1,0 +1,15 @@
+#############
+### Setup ###
+#############
+
+# cat=General/userbatch/10; type=string; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:prefix
+prefix = pre
+
+# cat=General/userbatch/20; type=int; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:pidFe
+pidFe = 1
+
+# cat=General/userbatch/20; type=int; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:pidBe
+pidBe = 1
+
+# cat=General/userbatch/100; type=int; label=LLL:EXT:userbatch/Resources/Private/Language/ExtConfTemplate.xlf:defaultFeUserGroup
+defaultFeUserGroup = 1

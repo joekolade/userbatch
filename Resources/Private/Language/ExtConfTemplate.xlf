@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" product-name="userbatch">
+        <header/>
+        <body>
+
+            <trans-unit id="prefix">
+                <source>Prefix for usernames</source>
+            </trans-unit>
+
+            <trans-unit id="pidFe">
+                <source>Storage PID for FE-users</source>
+            </trans-unit>
+            <trans-unit id="pidBe">
+                <source>Storage PID for BE-users</source>
+            </trans-unit>
+            <trans-unit id="defaultFeUserGroup">
+                <source>Default user group for FE-users</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

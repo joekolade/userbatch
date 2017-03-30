@@ -1,11 +1,11 @@
 <?php
 
-namespace SCW\Beuserbatch\Tests\Unit\Domain\Model;
+namespace JS\Beuserbatch\Tests\Unit\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Joe Schäfer <schaefer@scw.info>, SCW
+ *  (c) 2016 Joe Schäfer <joe@joekola.de>
  *
  *  All rights reserved
  *
@@ -27,23 +27,23 @@ namespace SCW\Beuserbatch\Tests\Unit\Domain\Model;
  ***************************************************************/
 
 /**
- * Test case for class \SCW\Beuserbatch\Domain\Model\BackendUser.
+ * Test case for class \JS\Beuserbatch\Domain\Model\BackendUser.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
- * @author Joe Schäfer <schaefer@scw.info>
+ * @author Joe Schäfer <joe@joekola.de>
  */
 class BackendUserTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 	/**
-	 * @var \SCW\Beuserbatch\Domain\Model\BackendUser
+	 * @var \JS\Beuserbatch\Domain\Model\BackendUser
 	 */
 	protected $subject = NULL;
 
 	public function setUp()
 	{
-		$this->subject = new \SCW\Beuserbatch\Domain\Model\BackendUser();
+		$this->subject = new \JS\Beuserbatch\Domain\Model\BackendUser();
 	}
 
 	public function tearDown()

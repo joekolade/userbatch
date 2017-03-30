@@ -1,11 +1,11 @@
 <?php
 
-namespace SCW\Beuserbatch\Tests\Unit\Domain\Model;
+namespace JS\Beuserbatch\Tests\Unit\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Joe Schäfer <schaefer@scw.info>, SCW
+ *  (c) 2016 Joe Schäfer <joe@joekola.de>
  *
  *  All rights reserved
  *
@@ -27,23 +27,23 @@ namespace SCW\Beuserbatch\Tests\Unit\Domain\Model;
  ***************************************************************/
 
 /**
- * Test case for class \SCW\Beuserbatch\Domain\Model\Importuser.
+ * Test case for class \JS\Beuserbatch\Domain\Model\Importuser.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
- * @author Joe Schäfer <schaefer@scw.info>
+ * @author Joe Schäfer <joe@joekola.de>
  */
 class ImportuserTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 	/**
-	 * @var \SCW\Beuserbatch\Domain\Model\Importuser
+	 * @var \JS\Beuserbatch\Domain\Model\Importuser
 	 */
 	protected $subject = NULL;
 
 	public function setUp()
 	{
-		$this->subject = new \SCW\Beuserbatch\Domain\Model\Importuser();
+		$this->subject = new \JS\Beuserbatch\Domain\Model\Importuser();
 	}
 
 	public function tearDown()

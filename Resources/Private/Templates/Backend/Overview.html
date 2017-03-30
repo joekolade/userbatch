@@ -14,9 +14,26 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <f:form action="check" class="" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <b>Import list as</b><br>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="tx_userbatch_tools_userbatchusercreate[importAs]" id="importAs1" value="1" checked>
+                    BE-User
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="tx_userbatch_tools_userbatchusercreate[importAs]" id="importAs2" value="2">
+                    FE-User
+                  </label>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="file">File input</label>
-                <f:form.upload name="file" />
+                <f:form.upload name="file" id="file" class="form-control" />
               </div>
               <f:form.submit class="btn btn-default" name="mySubmit" value="Submit" />
             </f:form>

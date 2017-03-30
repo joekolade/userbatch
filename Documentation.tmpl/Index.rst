@@ -35,7 +35,7 @@ Backenduser Batch Create
 		Joe Schäfer
 
 	:Email:
-		schaefer@scw.info
+		joe@joekola.de
 
 	:License:
 		This document is published under the Open Content License
