@@ -100,8 +100,6 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         // delete title column
         array_shift($arrResult);
 
-        DebuggerUtility::var_dump($arrResult);
-
         foreach ($arrResult as $key => &$value) {
 
             # skip if email is already in use
@@ -117,9 +115,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             $u->setFirstname($value[0]);
             $u->setLastname($value[1]);
             $u->setEmail($value[2]);
-            $value[3] = intval($value[3]);
 
-            // todo: multiple groups csv
             $u->setGroups($value[3]);
 
             $value[4] = $this->buildUsername($value);
@@ -246,16 +242,27 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         $u->setUserName($user->getUsername());
         $u->setEmail($user->getEmail());
 
+
         // Group
-        if($user->getBegrouip() > 0){
-            // Set Group!
-            $g = $this->beusergroupRepository->findByUid($user->getBegrouip());
-            $u->setBackendUserGroups($g);
+        if($user->getGroups() != ''){
+            $groupAdd = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
+            // Set Groups
+            $groups = explode(',', $user->getGroups());
+
+            foreach ($groups as $group) {
+
+                $g = $this->beusergroupRepository->findByUid(trim($group));
+                $groupAdd->attach($g);
+            }
+
+            $u->setBackendUserGroups($groupAdd);
+
         }
         else {
             $u->setIsAdministrator(TRUE);
         }
-        $u->setPid($extconf['pid']);
+        $u->setPid($extconf['pidBe']);
 
         $this->beuserRepository->add($u);
         $persistenceManager->persistAll();

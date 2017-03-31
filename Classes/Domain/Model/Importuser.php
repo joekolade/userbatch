@@ -175,9 +175,9 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $groups
      * @return void
      */
-    public function setGroups($username)
+    public function setGroups($groups)
     {
-        $this->groups = groups;
+        $this->groups = $groups;
     }
 
     /**
