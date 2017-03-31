@@ -115,24 +115,12 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             $u->setFirstname($value[0]);
             $u->setLastname($value[1]);
             $u->setEmail($value[2]);
-            $value[3] = intval($value[3]);
 
-            // todo: multiple groups csv
-            $u->setBegrouip($value[3]);
+            $u->setGroups($value[3]);
 
-            if(is_int($value[3]) && $value[3] > 0){
-                $g = $this->beusergroupRepository->findByUid($value[3]);
-                if(count($g)){
-                    $value[4] = $g->getTitle() . ' (#' . $value[3] . ')';
-                }
-            }
-            else {
-                $value[4] = 'Admin';
-            }
-            $value[5] = $this->buildUsername($value);
+            $value[4] = $this->buildUsername($value);
 
-            $u->setGroupname($value[4]);
-            $u->setUsername($value[5]);
+            $u->setUsername($value[4]);
 
             $this->importUserRepository->add($u);
 
@@ -197,7 +185,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
     {
-        $u = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+        $u = new \JS\Userbatch\Domain\Model\Feuser;
 
         $u->setUserName($user->getUsername());
 
@@ -208,13 +196,18 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         $u->setEmail($user->getEmail());
 
         // Group
-        if($user->getBegrouip() > 0){
-            // Set Group!
-            $g = $this->feusergroupRepository->findByUid($user->getBegrouip());
+        if($user->getGroups() > 0){
+            // Set Groups
+            $groups = explode(',', $user->getGroups());
+            foreach ($groups as $group) {
+                $g = $this->feusergroupRepository->findByUid(trim($group));
 
-            if($g && count($g)) {
-                $u->addUsergroup($g);
+                if($g && count($g)) {
+                    $u->addUsergroup($g);
+                }
             }
+
+
         }
         else {
             // Set Group!
@@ -224,6 +217,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
                 $u->addUsergroup($g);
             }
         }
+
         $u->setPid($extconf['pidFe']);
 
         $this->feuserRepository->add($u);
@@ -254,16 +248,30 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         $u->setUserName($user->getUsername());
         $u->setEmail($user->getEmail());
 
+
         // Group
-        if($user->getBegrouip() > 0){
-            // Set Group!
-            $g = $this->beusergroupRepository->findByUid($user->getBegrouip());
-            $u->setBackendUserGroups($g);
+        if($user->getGroups() != ''){
+            $groupAdd = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
+            // Set Groups
+            $groups = explode(',', $user->getGroups());
+
+            foreach ($groups as $group) {
+
+                $g = $this->beusergroupRepository->findByUid(trim($group));
+                if($g && count($g)) {
+                    $groupAdd->attach($g);
+                }
+            }
+
+            $u->setBackendUserGroups($groupAdd);
+
         }
         else {
             $u->setIsAdministrator(TRUE);
         }
-        $u->setPid($extconf['pid']);
+
+        $u->setPid($extconf['pidBe']);
 
         $this->beuserRepository->add($u);
         $persistenceManager->persistAll();

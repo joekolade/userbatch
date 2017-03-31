@@ -18,11 +18,8 @@
 			<trans-unit id="tx_userbatch_domain_model_importuser.username">
 				<source>Username</source>
 			</trans-unit>
-			<trans-unit id="tx_userbatch_domain_model_importuser.begrouip">
+			<trans-unit id="tx_userbatch_domain_model_importuser.groups">
 				<source>Begrouip</source>
-			</trans-unit>
-			<trans-unit id="tx_userbatch_domain_model_importuser.groupname">
-				<source>Groupname</source>
 			</trans-unit>
 			<trans-unit id="tx_userbatch_domain_model_importuser.email">
 				<source>Email</source>

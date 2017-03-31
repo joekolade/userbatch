@@ -15,11 +15,8 @@
 			<trans-unit id="username.description">
 				<source>username</source>
 			</trans-unit>
-			<trans-unit id="begrouip.description">
-				<source>begrouip</source>
-			</trans-unit>
-			<trans-unit id="groupname.description">
-				<source>groupname</source>
+			<trans-unit id="groups.description">
+				<source>groups</source>
 			</trans-unit>
 			<trans-unit id="email.description">
 				<source>email</source>

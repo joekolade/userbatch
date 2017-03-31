@@ -53,7 +53,7 @@ class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
     /**
      * feuserRepository
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+     * @var \JS\Userbatch\Domain\Repository\FeuserRepository
      * @inject
      */
     protected $feuserRepository = NULL;

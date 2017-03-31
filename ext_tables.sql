@@ -11,8 +11,8 @@ CREATE TABLE tx_userbatch_domain_model_importuser (
 	firstname varchar(255) DEFAULT '' NOT NULL,
 	lastname varchar(255) DEFAULT '' NOT NULL,
 	username varchar(255) DEFAULT '' NOT NULL,
-	begrouip int(11) DEFAULT '0' NOT NULL,
-	groupname varchar(255) DEFAULT '' NOT NULL,
+
+	groups varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

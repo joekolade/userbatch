@@ -8,11 +8,11 @@
         <f:then>
           <p>
             Data to import as
-            <f:if condition="{importAs} == 1">
+            <b><f:if condition="{importAs} == 1">
               <f:then>Backend-Users</f:then>
               <f:else>Frontend-Users</f:else>
             </f:if>
-            :
+            </b>:
           </p>
           <table class="table table-striped">
             <tr>
@@ -20,7 +20,7 @@
               <th>Lastname</th>
               <th>E-Mail</th>
               <th>username (generated)</th>
-              <th>Usergroup</th>
+              <th>Groups-IDs</th>
             </tr>
             <f:for each="{data}" as="user">
               <tr>
@@ -28,14 +28,13 @@
                 <td>{user.lastname}</td>
                 <td>{user.email}</td>
                 <td>{user.username}</td>
-                <td>{user.groupname}</td>
+                <td>{user.groups}</td>
               </tr>
             </f:for>
           </table>
           <p>
             Is this what you wanted to import?
           </p>
-import as: {importAs}
           <f:link.action action="create" class="btn btn-primary" arguments="{importAs: importAs}">Create Users as shown above</f:link.action>
         </f:then>
         <f:else>
