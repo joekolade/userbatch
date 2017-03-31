@@ -62,18 +62,11 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $username = '';
 
     /**
-     * begrouip
-     *
-     * @var int
-     */
-    protected $begrouip = 0;
-
-    /**
-     * groupname
+     * groups
      *
      * @var string
      */
-    protected $groupname = '';
+    protected $groups= '';
 
     /**
      * email
@@ -167,24 +160,24 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the begrouip
+     * Returns the groups
      *
-     * @return int $begrouip
+     * @return string $groups
      */
-    public function getBegrouip()
+    public function getGroups()
     {
-        return $this->begrouip;
+        return $this->groups;
     }
 
     /**
-     * Sets the begrouip
+     * Sets the groups
      *
-     * @param int $begrouip
+     * @param string $groups
      * @return void
      */
-    public function setBegrouip($begrouip)
+    public function setGroups($username)
     {
-        $this->begrouip = $begrouip;
+        $this->groups = groups;
     }
 
     /**
@@ -206,27 +199,6 @@ class Importuser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * Returns the groupname
-     *
-     * @return string groupname
-     */
-    public function getGroupname()
-    {
-        return $this->groupname;
-    }
-
-    /**
-     * Sets the groupname
-     *
-     * @param string $groupname
-     * @return void
-     */
-    public function setGroupname($groupname)
-    {
-        $this->groupname = $groupname;
     }
 
 }

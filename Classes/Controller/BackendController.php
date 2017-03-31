@@ -100,6 +100,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         // delete title column
         array_shift($arrResult);
 
+        DebuggerUtility::var_dump($arrResult);
+
         foreach ($arrResult as $key => &$value) {
 
             # skip if email is already in use
@@ -118,21 +120,11 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             $value[3] = intval($value[3]);
 
             // todo: multiple groups csv
-            $u->setBegrouip($value[3]);
+            $u->setGroups($value[3]);
 
-            if(is_int($value[3]) && $value[3] > 0){
-                $g = $this->beusergroupRepository->findByUid($value[3]);
-                if(count($g)){
-                    $value[4] = $g->getTitle() . ' (#' . $value[3] . ')';
-                }
-            }
-            else {
-                $value[4] = 'Admin';
-            }
-            $value[5] = $this->buildUsername($value);
+            $value[4] = $this->buildUsername($value);
 
-            $u->setGroupname($value[4]);
-            $u->setUsername($value[5]);
+            $u->setUsername($value[4]);
 
             $this->importUserRepository->add($u);
 
