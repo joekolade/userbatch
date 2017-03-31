@@ -1,17 +1,17 @@
 module.tx_userbatch_tools_userbatchbeusercreate {
   settings {
+
   }
 }
-config.tx_extbase{
-    persistence{
-        classes{
 
-            JS\Beuserbatch\Domain\Model\Importuser {
+config.tx_extbase {
+    persistence {
+        classes {
+            JS\Userbatch\Domain\Model\Feuser {
                 mapping {
-
+                    tableName = fe_users
                 }
             }
-
-    	}
+        }
     }
 }

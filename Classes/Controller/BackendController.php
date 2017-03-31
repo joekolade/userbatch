@@ -102,11 +102,15 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
         foreach ($arrResult as $key => &$value) {
 
+            DebuggerUtility::var_dump($this->feuserRepository->findByEmail($value[2]));
+
             # skip if email is already in use
             if( ($importAs == 1) && count($this->beuserRepository->findByEmail($value[2])) ){
                 continue;
             }
             else if( ($importAs == 2) && count($this->feuserRepository->findByEmail($value[2])) ){
+                DebuggerUtility::var_dump($value[2], 'Fe user found!');
+
                 continue;
             }
 
@@ -217,9 +221,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
                 $u->addUsergroup($g);
             }
         }
-        $u->setPid($extconf['pidBe']);
 
-        $u->setPid($extconf['pidFe']);
+        #$u->setPid($extconf['pidFe']);
 
         $this->feuserRepository->add($u);
         $persistenceManager->persistAll();
