@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6aec2185-00f0-40e0-acf2-8b5abf90ea1a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/Controller/BackendController.php" afterPath="$PROJECT_DIR$/Classes/Controller/BackendController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Private/Templates/Backend/Check.html" afterPath="$PROJECT_DIR$/Resources/Private/Templates/Backend/Check.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Private/Templates/Backend/Overview.html" afterPath="$PROJECT_DIR$/Resources/Private/Templates/Backend/Overview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext_emconf.php" afterPath="$PROJECT_DIR$/ext_emconf.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -403,7 +399,7 @@
       <workItem from="1490994811174" duration="20000" />
       <workItem from="1490994839748" duration="70000" />
       <workItem from="1490994913903" duration="3143000" />
-      <workItem from="1490998436501" duration="246000" />
+      <workItem from="1490998436501" duration="261000" />
     </task>
     <task id="LOCAL-00001" summary="Userbatch BE works&#10;&#10;prefix configurable">
       <created>1490909173852</created>
@@ -489,11 +485,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490998465415</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Finalise first Version">
+      <created>1490998695524</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1490998695524</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10766000" />
+    <option name="totallyTimeSpent" value="10781000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -583,7 +586,8 @@
     <MESSAGE value="Multiple BE Groups working" />
     <MESSAGE value="Multiple FE Groups working" />
     <MESSAGE value="Fe users und storage pids" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fe users und storage pids" />
+    <MESSAGE value="Finalise first Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalise first Version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
