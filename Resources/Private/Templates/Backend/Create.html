@@ -5,7 +5,11 @@
 
     <f:section name="main">
         <p>
-          The following Users have been Created:
+          The following <b><f:if condition="{importAs} == 1">
+            <f:then>Backend-Users</f:then>
+            <f:else>Frontend-Users</f:else>
+        </f:if>
+        </b> have been created:
         </p>
         <table class="table table-striped">
           <tr>

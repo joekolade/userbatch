@@ -196,13 +196,18 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         $u->setEmail($user->getEmail());
 
         // Group
-        if($user->getBegrouip() > 0){
-            // Set Group!
-            $g = $this->feusergroupRepository->findByUid($user->getBegrouip());
+        if($user->getGroups() > 0){
+            // Set Groups
+            $groups = explode(',', $user->getGroups());
+            foreach ($groups as $group) {
+                $g = $this->feusergroupRepository->findByUid(trim($group));
 
-            if($g && count($g)) {
-                $u->addUsergroup($g);
+                if($g && count($g)) {
+                    $u->addUsergroup($g);
+                }
             }
+
+
         }
         else {
             // Set Group!
@@ -212,6 +217,8 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
                 $u->addUsergroup($g);
             }
         }
+        $u->setPid($extconf['pidBe']);
+
         $u->setPid($extconf['pidFe']);
 
         $this->feuserRepository->add($u);
@@ -253,7 +260,9 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
             foreach ($groups as $group) {
 
                 $g = $this->beusergroupRepository->findByUid(trim($group));
-                $groupAdd->attach($g);
+                if($g && count($g)) {
+                    $groupAdd->attach($g);
+                }
             }
 
             $u->setBackendUserGroups($groupAdd);
@@ -262,6 +271,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         else {
             $u->setIsAdministrator(TRUE);
         }
+
         $u->setPid($extconf['pidBe']);
 
         $this->beuserRepository->add($u);
