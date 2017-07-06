@@ -1,5 +1,5 @@
 <?php
-namespace JS\Userbatch\Messaging;
+namespace Joekolade\Userbatch\Messaging;
 
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;

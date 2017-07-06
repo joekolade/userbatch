@@ -1,5 +1,5 @@
 <?php
-namespace JS\Userbatch\Controller;
+namespace Joekolade\Userbatch\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * Backend module user administration controller
  */
-class BackendController extends \JS\Userbatch\Controller\AbstractBackendController
+class BackendController extends \Joekolade\Userbatch\Controller\AbstractBackendController
 {
 
     /**
@@ -110,7 +110,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
                 continue;
             }
 
-            $u = new \JS\Userbatch\Domain\Model\Importuser();
+            $u = new \Joekolade\Userbatch\Domain\Model\Importuser();
             $u->setUsertype($importAs);
             $u->setFirstname($value[0]);
             $u->setLastname($value[1]);
@@ -183,9 +183,9 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
 
     }
 
-    protected function createFeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
+    protected function createFeUser(\Joekolade\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
     {
-        $u = new \JS\Userbatch\Domain\Model\Feuser;
+        $u = new \Joekolade\Userbatch\Domain\Model\Feuser;
 
         $u->setUserName($user->getUsername());
 
@@ -241,7 +241,7 @@ class BackendController extends \JS\Userbatch\Controller\AbstractBackendControll
         return array($user->getUsername(), $pwd);
     }
 
-    protected function createBeUser(\JS\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
+    protected function createBeUser(\Joekolade\Userbatch\Domain\Model\Importuser $user, \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager, $extconf)
     {
         $u = new \TYPO3\CMS\Beuser\Domain\Model\BackendUser;
         $u->setRealName($user->getFirstname() . ' ' . $user->getLastname());

@@ -7,7 +7,7 @@ module.tx_userbatch_tools_userbatchbeusercreate {
 config.tx_extbase {
     persistence {
         classes {
-            JS\Userbatch\Domain\Model\Feuser {
+            Joekolade\Userbatch\Domain\Model\Feuser {
                 mapping {
                     tableName = fe_users
                 }

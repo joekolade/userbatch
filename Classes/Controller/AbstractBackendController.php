@@ -1,5 +1,5 @@
 <?php
-namespace JS\Userbatch\Controller;
+namespace Joekolade\Userbatch\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -53,7 +53,7 @@ class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
     /**
      * feuserRepository
      *
-     * @var \JS\Userbatch\Domain\Repository\FeuserRepository
+     * @var \Joekolade\Userbatch\Domain\Repository\FeuserRepository
      * @inject
      */
     protected $feuserRepository = NULL;
@@ -61,7 +61,7 @@ class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
     /**
      * downloads: download
      *
-     * @var \JS\Userbatch\Domain\Repository\ImportuserRepository
+     * @var \Joekolade\Userbatch\Domain\Repository\ImportuserRepository
      * @inject
      */
     protected $importUserRepository = NULL;
@@ -75,7 +75,7 @@ class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
     ) {
         /** @var $flashMessage FlashMessage */
         $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-          'JS\\Userbatch\\Messaging\\FlashMessage',
+          'Joekolade\\Userbatch\\Messaging\\FlashMessage',
           htmlspecialchars($message),
           htmlspecialchars($title),
           $this->_parseSeverity($severity),
@@ -91,19 +91,19 @@ class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
 
         switch ($sev) {
             case 'NOTICE':
-                $sev = \JS\Userbatch\Messaging\FlashMessage::NOTICE;
+                $sev = \Joekolade\Userbatch\Messaging\FlashMessage::NOTICE;
                 break;
             case 'INFO':
-                $sev = \JS\Userbatch\Messaging\FlashMessage::INFO;
+                $sev = \Joekolade\Userbatch\Messaging\FlashMessage::INFO;
                 break;
             case 'OK':
-                $sev = \JS\Userbatch\Messaging\FlashMessage::OK;
+                $sev = \Joekolade\Userbatch\Messaging\FlashMessage::OK;
                 break;
             case 'WARNING':
-                $sev = \JS\Userbatch\Messaging\FlashMessage::WARNING;
+                $sev = \Joekolade\Userbatch\Messaging\FlashMessage::WARNING;
                 break;
             case 'ERROR':
-                $sev = \JS\Userbatch\Messaging\FlashMessage::ERROR;
+                $sev = \Joekolade\Userbatch\Messaging\FlashMessage::ERROR;
                 break;
             default:
                 break;

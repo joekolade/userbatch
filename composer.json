@@ -1,5 +1,5 @@
 {
-  "name": "js/userbatch",
+  "name": "joekolade/userbatch",
   "description": "Backend- and Frontend-User Batch Create from CSV-File",
   "type": "typo3-cms-extension",
   "require": {
@@ -9,7 +9,7 @@
   },
   "autoload": {
     "psr-4": {
-      "JS\\Userbatch\\": "Classes/"
+      "Joekolade\\Userbatch\\": "Classes/"
     }
   }
 }
